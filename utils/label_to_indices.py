@@ -6,7 +6,7 @@ import pandas as pd
 from torch_snippets import *
 
 def label_idx_converter(cls_lst, ctype=0):
-    df = pd.DataFrame(flatten(cls_lst), columns=['label'])
+    df = pd.DataFrame(cls_lst, columns=['label'])
     label2idx = {l: t for t, l in enumerate(df['label'].unique())}
     if ctype == 0:
         return label2idx
