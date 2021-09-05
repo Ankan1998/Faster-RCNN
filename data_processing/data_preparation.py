@@ -1,5 +1,4 @@
 import os
-import pandas as pd
 from torch.utils.data import Dataset, DataLoader
 from torch_snippets import *
 import cv2
@@ -13,14 +12,14 @@ warnings.filterwarnings("ignore")
 
 
 class AerialMaritimeDataset(Dataset):
-    def __init__(self, data_dir, csv_file, dim, transform=None):
+    def __init__(self, data_dir, dataframe, transform=None):
         self.data_dir = data_dir
         self.transform = transform
-        self.df = pd.read_csv(csv_file)
+        self.df = dataframe
         self.label2idx = label_idx_converter(self.df['class'].tolist(), ctype=0)
         self.unique_imgs = self.df['filename'].unique()
-        self.w = dim[0]
-        self.h = dim[1]
+        self.w = 224
+        self.h = 224
 
     def __len__(self):
         return len(self.unique_imgs)
