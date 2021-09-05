@@ -10,6 +10,6 @@ to decrease the inference time.
 * [x] Custom Dataset Class created
 * [x] utils added
 * [x] Model Script 
-* [ ] Dataloader
+* [x] Dataloader
 * [ ] Training
 * [ ] Inference
