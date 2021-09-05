@@ -6,7 +6,7 @@ from torch.utils.data import DataLoader
 0 --> train
 else --> validation
 '''
-def dataloader(data_dir, csv_file, type=0):
+def dataloader(data_dir, csv_file, batch_size=4,type=0):
 
     df = pd.read_csv(csv_file)
     train_ids, val_ids = train_test_split(df['filename'].unique(),test_size=0.1)
@@ -15,7 +15,16 @@ def dataloader(data_dir, csv_file, type=0):
     train_ds = AerialMaritimeDataset(data_dir,train_df)
     val_ds = AerialMaritimeDataset(data_dir,val_df)
     if type == 0:
-        return DataLoader(train_ds, batch_size=4, collate_fn=train_ds.collate_fn)
+        return DataLoader(train_ds, batch_size=batch_size, collate_fn=train_ds.collate_fn)
     else:
-        return DataLoader(val_ds, batch_size=4, collate_fn=val_ds.collate_fn)
+        return DataLoader(val_ds, batch_size=batch_size, collate_fn=val_ds.collate_fn)
+
+if __name__=="__main__":
+
+    dir = r'C:\Users\Ankan\Downloads\Aerial Maritime.v14-black_pad_one_pixel.tensorflow\train'
+    csv_file = r'C:\Users\Ankan\Downloads\Aerial Maritime.v14-black_pad_one_pixel.tensorflow\train\_annotations.csv'
+    train_dl = dataloader(dir,csv_file,1,0)
+    for i in train_dl:
+        print(i)
+        break
 
