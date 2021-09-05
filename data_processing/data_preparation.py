@@ -45,6 +45,9 @@ class AerialMaritimeDataset(Dataset):
         img = preprocess_image(img)
         return img, target
 
+    def collate_fn(self, batch):
+        return tuple(zip(*batch))
+
 if __name__=="__main__":
     dir = r'C:\Users\Ankan\Downloads\Aerial Maritime.v14-black_pad_one_pixel.tensorflow\train'
     csv_file = r'C:\Users\Ankan\Downloads\Aerial Maritime.v14-black_pad_one_pixel.tensorflow\train\_annotations.csv'
