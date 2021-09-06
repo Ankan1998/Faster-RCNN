@@ -3,9 +3,8 @@ import pandas as pd
 from data_processing.data_preparation import AerialMaritimeDataset
 from torch.utils.data import DataLoader
 
-def dataloader(data_dir, csv_file, batch_size=4):
+def dataloader(data_dir, df, batch_size=4):
 
-    df = pd.read_csv(csv_file)
     train_ids, val_ids = train_test_split(df['filename'].unique(),test_size=0.1)
     train_df, val_df = df[df['filename'].isin(train_ids)], df[df['filename'].isin(val_ids)]
 
