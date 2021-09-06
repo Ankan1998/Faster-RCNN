@@ -2,12 +2,12 @@ import os
 from torch.utils.data import Dataset, DataLoader
 from torch_snippets import *
 import cv2
-
+import pandas as pd
 import warnings
 
 from utils.label_to_indices import label_idx_converter
 from utils.preprocess import preprocess_image
-
+from utils.bbox_area_checker import bbox_area_checker
 warnings.filterwarnings("ignore")
 
 
@@ -38,6 +38,11 @@ class AerialMaritimeDataset(Dataset):
         boxes[:,[0,2]] = boxes[:,[0,2]]*scale_w
         boxes[:, [1, 3]] = boxes[:, [1, 3]] * scale_h
         boxes = boxes.astype(np.uint16).tolist()
+        flag,bbxidx = bbox_area_checker(boxes)
+        if flag !=0:
+            print(bbxidx)
+            print(boxes)
+            print(image_id)
         target = {}
         target["boxes"] = torch.Tensor(boxes).float()
         target["labels"] = torch.Tensor([self.label2idx[i] for i in labels]).long()
@@ -50,5 +55,8 @@ class AerialMaritimeDataset(Dataset):
 if __name__=="__main__":
     dir = r'C:\Users\Ankan\Downloads\Aerial Maritime.v14-black_pad_one_pixel.tensorflow\train'
     csv_file = r'C:\Users\Ankan\Downloads\Aerial Maritime.v14-black_pad_one_pixel.tensorflow\train\_annotations.csv'
-    ds = AerialMaritimeDataset(dir,csv_file,(224,224))
-    im, target = ds[19]
+    df = pd.read_csv(csv_file)
+    ds = AerialMaritimeDataset(dir,df)
+
+    for i in range(44):
+        im, target = ds[i]
