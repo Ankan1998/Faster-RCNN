@@ -20,7 +20,8 @@ if __name__=="__main__":
 
     dir = r'C:\Users\Ankan\Downloads\Aerial Maritime.v14-black_pad_one_pixel.tensorflow\train'
     csv_file = r'C:\Users\Ankan\Downloads\Aerial Maritime.v14-black_pad_one_pixel.tensorflow\train\_annotations.csv'
-    train_dl, val_dl = dataloader(dir,csv_file,1)
+    df = pd.read_csv(csv_file)
+    train_dl, val_dl = dataloader(dir,df,1)
     for i in train_dl:
         print(i)
         break
