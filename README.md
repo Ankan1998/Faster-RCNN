@@ -11,5 +11,5 @@ to decrease the inference time.
 * [x] utils added
 * [x] Model Script 
 * [x] Dataloader
-* [ ] Training
+* [x] Training
 * [ ] Inference
