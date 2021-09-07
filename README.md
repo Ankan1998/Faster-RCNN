@@ -12,4 +12,6 @@ to decrease the inference time.
 * [x] Model Script 
 * [x] Dataloader
 * [x] Training
+* [ ] Model Saving
 * [ ] Inference
+* [ ] Model Serving
