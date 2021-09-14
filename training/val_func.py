@@ -1,8 +1,7 @@
 import torch
 
 @torch.no_grad()
-def validate_batch(inputs, model,optimizer):
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+def validate_batch(inputs, model,optimizer,device):
     model.train()
     input, targets = inputs
     input = list(image.to(device) for image in input)

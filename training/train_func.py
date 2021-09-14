@@ -1,7 +1,6 @@
 import torch
 
-def train_batch(inputs, model, optimizer):
-    device = 'cuda' if torch.cuda.is_available() else 'cpu'
+def train_batch(inputs, model, optimizer,device):
     model.train()
     input, targets = inputs
     input = list(image.to(device) for image in input)
