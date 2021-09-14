@@ -14,19 +14,19 @@ def main_training(n_epochs,data_dir,csv_file):
     model = get_model(len(label_idx_converter(df['class'].tolist(),0))).to(device)
     optimizer = torch.optim.SGD(model.parameters(), lr=0.005, momentum=0.9, weight_decay=0.0005)
     train_loader,val_loader = dataloader(data_dir,df,4)
-    loss=99999,
-    val_loss=99999
     for epoch in tqdm(range(n_epochs)):
+        loss=0
+        val_loss=0
         _t = len(train_loader)
         for idx, inputs in enumerate(tqdm(train_loader)):
-            loss, losses = train_batch(inputs,model, optimizer)
+            loss, losses = train_batch(inputs,model, optimizer,device)
             loc_loss, regr_loss, loss_objectness, loss_rpn_box_reg = \
                 [losses[k] for k in ['loss_classifier', 'loss_box_reg', 'loss_objectness','loss_rpn_box_reg']]
 
         print("---------------Validation---------------------")
         _v = len(val_loader)
         for idx,inputs in enumerate(tqdm(val_loader)):
-            val_loss, val_losses = validate_batch(inputs, model, optimizer)
+            val_loss, val_losses = validate_batch(inputs, model, optimizer,device)
             val_loc_loss, val_regr_loss, val_loss_objectness, val_loss_rpn_box_reg = \
                 [val_losses[k] for k in ['loss_classifier', 'loss_box_reg', 'loss_objectness','loss_rpn_box_reg']]
 
